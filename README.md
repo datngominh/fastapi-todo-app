@@ -1,14 +1,14 @@
 # FastAPI Todo App Assignment
 A FastAPI Todo App Assignment
 
-# Sample Setup 
-- Create a virtual environment using `virtualenv` module in python.
+# Sample Setup (ubuntu 22.xx, python 3.12)
+- Create a virtual environment using `python3.12-venv` module.
 ```bash
 # Install module (globally)
-pip install virtualenv
+sudo apt install python3.12-venv
 
 # Generate virtual environment
-virtualenv --python=<your-python-runtime-version> venv
+python3 -m venv venv
 
 # Activate virtual environment
 source venv/bin/activate
