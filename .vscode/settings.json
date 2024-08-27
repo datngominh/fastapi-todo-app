@@ -1,4 +1,7 @@
 {
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.extraPaths": ["./app"],
+    "python.analysis.extraPaths": [
+        "./app"
+    ],
+    "python.analysis.typeCheckingMode": "basic",
 }
