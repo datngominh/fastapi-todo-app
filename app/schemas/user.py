@@ -18,7 +18,7 @@ class User(BaseEntity, Base):
     is_admin = Column(Boolean, default=False)
     company_id = Column(Uuid, ForeignKey("companies.id"), nullable=True)
 
-    company = relationship("Company")
+    company = relationship("Company", back_populates='users')
     tasks = relationship("Task", back_populates="user")
 
 

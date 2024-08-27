@@ -18,3 +18,7 @@ class InvalidInputError(HTTPException):
     def __init__(self, msg=None):
         super().__init__(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, 
                             detail="Invalid input data" if msg is None else msg)
+        
+class InternalServerError(HTTPException):
+    def __init__(self):
+        super().__init__(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal server error")
