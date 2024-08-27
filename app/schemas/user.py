@@ -1,7 +1,8 @@
-from sqlalchemy import Boolean, Column, String
+from sqlalchemy import Boolean, Column, ForeignKey, String, Uuid, null
 from database import Base
 from schemas.base_entity import BaseEntity
 from passlib.context import CryptContext
+from sqlalchemy.orm import relationship
 
 bcrypt_context = CryptContext(schemes=["bcrypt"])
 
@@ -15,6 +16,10 @@ class User(BaseEntity, Base):
     password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     is_admin = Column(Boolean, default=False)
+    company_id = Column(Uuid, ForeignKey("companies.id"), nullable=True)
+
+    company = relationship("Company")
+    tasks = relationship("Task", back_populates="user")
 
 
 def get_password_hash(password):
