@@ -24,6 +24,8 @@ def upgrade() -> None:
     user_table = op.create_table(
         'users',
         sa.Column("id", sa.UUID, nullable=False, primary_key=True),
+        sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now()),
+        sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.func.now(), onupdate=sa.func.now()),
         sa.Column('email', sa.String(), unique=True, index=True, nullable=False),
         sa.Column('username', sa.String(), unique=True, index=True, nullable=False),
         sa.Column('first_name', sa.String(), nullable=False),
