@@ -11,6 +11,11 @@ class UserCreateModel(BaseModel):
     last_name: str
     password: str
 
+class UserUpdateModel(BaseModel):
+    email: Optional[str]
+    first_name: Optional[str]
+    last_name: Optional[str]
+
 class UserBaseModel(BaseModel):
     id: UUID
     username: str
