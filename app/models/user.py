@@ -4,7 +4,7 @@ from uuid import UUID
 from pydantic import BaseModel
 
 
-class UserModel(BaseModel):
+class UserCreateModel(BaseModel):
     username: str
     email: Optional[str]
     first_name: str

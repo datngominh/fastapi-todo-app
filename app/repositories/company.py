@@ -1,8 +1,10 @@
 from datetime import datetime, UTC
+from typing import List
 from uuid import UUID
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
-from models.company import CompanyCreateModel, CompanyUpdateModel, CompanyViewModel
+from models import company
+from models.company import CompanyCreateModel, CompanySearchModel, CompanySearchResponseModel, CompanyUpdateModel, CompanyViewModel
 from schemas.company import Company_Mode
 from services import utils
 from schemas import Company
@@ -44,3 +46,19 @@ def delete_company(db: Session, company_id: UUID) -> Company:
     db.commit()
     db.refresh(existing_company)
     return existing_company
+
+
+def search_companies(db: Session, search_params: CompanySearchModel) -> CompanySearchResponseModel:
+    query = db.query(Company).filter_by(**search_params.get_filter())
+    
+    count = query.count()
+    companies = query.offset((search_params.page - 1) * search_params.page_size).limit(search_params.page_size).all()
+    
+    data = [CompanyViewModel.model_validate(c, from_attributes=True) for c in companies]
+    
+    return CompanySearchResponseModel(
+        page=search_params.page,
+        page_size=search_params.page_size,
+        total=count,
+        data=data
+    )

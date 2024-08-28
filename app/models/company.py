@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel
+from models.paging import BasePagingParams, BasePagingResponse
 from schemas.company import Company_Mode, Company_Rating
 
 class CompanyCreateModel(BaseModel):
@@ -16,6 +17,15 @@ class CompanyUpdateModel(BaseModel):
     mode : Optional[Company_Mode] = None
     rating : Optional[Company_Rating] = None
     
+class CompanySearchModel(BasePagingParams):
+    id : Optional[UUID] = None
+    name : Optional[str] = None
+    description : Optional[str] = None
+    mode : Optional[Company_Mode] = None
+    rating : Optional[Company_Rating] = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
+    
 class CompanyViewModel(BaseModel):
     id : UUID
     name : str
@@ -24,3 +34,6 @@ class CompanyViewModel(BaseModel):
     rating : Company_Rating
     created_at: datetime | None = None
     updated_at: datetime | None = None
+    
+class CompanySearchResponseModel(BasePagingResponse):
+    data : list[CompanyViewModel] = []
